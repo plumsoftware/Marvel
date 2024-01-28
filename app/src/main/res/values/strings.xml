@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Marvel</string>
+
+    <!-- Content description -->
+    <string name="hero_image">Изображение героя</string>
+
+    <!-- Iron man -->
+    <string name="icon_man_name">Железный человек</string>
+    <string name="icon_man_quote">Я Железный человек</string>
+
+    <!-- Deadpool -->
+    <string name="deadpool_name">Дэдпул</string>
+    <string name="deadpool_quote">Я Дэдпул</string>
+
+    <!-- Thor -->
+    <string name="thor_name">Тор</string>
+    <string name="thor_quote">Я Тор</string>
+
+    <!-- Dr Strange -->
+    <string name="strange_name">Доктор Стрэнж</string>
+    <string name="strange_quote">Я - главный маг Земли, хирург. Меня зовут Доктор Стрэнж</string>
 </resources>
