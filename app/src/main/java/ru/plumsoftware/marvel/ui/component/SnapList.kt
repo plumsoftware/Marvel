@@ -43,7 +43,7 @@ import ru.plumsoftware.marvel.ui.theme.Spaces
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SnapList(modifier: Modifier = Modifier, list: List<Hero>, onScroll: (Color) -> Unit = {}) {
+fun SnapList(modifier: Modifier = Modifier, list: List<Hero>, onScroll: (Color) -> Unit = {}, onHeroClick: (Hero) -> Unit = {}) {
 
     val state = rememberLazyListState()
 
@@ -96,7 +96,9 @@ fun SnapList(modifier: Modifier = Modifier, list: List<Hero>, onScroll: (Color) 
                 modifier = Modifier
                     .width(width = Sizes.HeroButton.width)
                     .height(height = Sizes.HeroButton.height),
-                onClick = {}
+                onClick = {
+                    onHeroClick(item)
+                }
             ) {
                 Box(modifier = Modifier.wrapContentSize()) {
                     Image(

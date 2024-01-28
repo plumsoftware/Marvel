@@ -4,6 +4,7 @@
     <!-- Content description -->
     <string name="hero_image">Изображение героя</string>
     <string name="marvel_image">Логотип марвел</string>
+    <string name="back_button">Иконка стрелки назад</string>
 
     <!-- Header -->
     <string name="header">Выберите своего героя</string>

@@ -72,6 +72,7 @@ dependencies {
 
 //    Navigation
     implementation ("androidx.navigation:navigation-common:$navVersion")
+    implementation("androidx.navigation:navigation-compose:$navVersion")
 
 //    System ui controller
     implementation("com.google.accompanist:accompanist-systemuicontroller:$systemUIController")

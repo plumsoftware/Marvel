@@ -5,6 +5,7 @@
     <!-- Content description -->
     <string name="hero_image">Hero image</string>
     <string name="marvel_image">Marvel logo</string>
+    <string name="back_button">Back arrow icon</string>
 
     <!-- Header -->
     <string name="header">Choose your hero</string>
