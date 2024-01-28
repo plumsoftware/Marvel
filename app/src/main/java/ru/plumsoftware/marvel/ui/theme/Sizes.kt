@@ -9,4 +9,9 @@ object Sizes {
 
         val allPadding = 0.dp
     }
+
+    object MarvelLogo {
+        val width = 130.dp
+        val height = 90.dp
+    }
 }

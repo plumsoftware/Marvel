@@ -13,7 +13,7 @@ fun getMockHeroes(): List<Hero> {
             heroImageResId = R.drawable.deadpool
         ),
         Hero(
-            heroColor = Color(0xFF760308),
+            heroColor = Color(0xFFE01720),
             heroNameResId = R.string.icon_man_name,
             heroQuoteResId = R.string.icon_man_quote,
             heroImageResId = R.drawable.iron_man

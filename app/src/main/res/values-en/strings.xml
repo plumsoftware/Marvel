@@ -3,7 +3,11 @@
     <string name="app_name">Marvel</string>
 
     <!-- Content description -->
-    <string name="hero_image">Изображение героя</string>
+    <string name="hero_image">Hero image</string>
+    <string name="marvel_image">Marvel logo</string>
+
+    <!-- Header -->
+    <string name="header">Choose your hero</string>
 
     <!-- Iron Man -->
     <string name="icon_man_name">Iron Man</string>

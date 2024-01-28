@@ -52,6 +52,7 @@ android {
 dependencies {
 
     val navVersion = "2.7.6"
+    val systemUIController = "0.32.0"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
@@ -71,4 +72,7 @@ dependencies {
 
 //    Navigation
     implementation ("androidx.navigation:navigation-common:$navVersion")
+
+//    System ui controller
+    implementation("com.google.accompanist:accompanist-systemuicontroller:$systemUIController")
 }

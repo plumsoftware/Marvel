@@ -3,6 +3,10 @@
 
     <!-- Content description -->
     <string name="hero_image">Изображение героя</string>
+    <string name="marvel_image">Логотип марвел</string>
+
+    <!-- Header -->
+    <string name="header">Выберите своего героя</string>
 
     <!-- Iron man -->
     <string name="icon_man_name">Железный человек</string>
