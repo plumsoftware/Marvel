@@ -38,14 +38,14 @@ fun HeroPage(hero: Hero, onBackCLick: () -> Unit) {
         modifier = Modifier
             .fillMaxSize()
     ) {
-        Image(
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop,
-            painter = painterResource(id = hero.heroImageResId),
-            contentDescription = "${stringResource(id = R.string.hero_image)} ${
-                stringResource(id = hero.heroNameResId)
-            }"
-        )
+//        Image(
+//            modifier = Modifier.fillMaxSize(),
+//            contentScale = ContentScale.Crop,
+//            painter = painterResource(id = hero.heroImageResId),
+//            contentDescription = "${stringResource(id = R.string.hero_image)} ${
+//                stringResource(id = hero.heroNameResId)
+//            }"
+//        )
 
         Column(
             horizontalAlignment = Alignment.Start,
@@ -81,12 +81,12 @@ fun HeroPage(hero: Hero, onBackCLick: () -> Unit) {
         ) {
 
             Text(
-                text = stringResource(id = hero.heroQuoteResId),
+                text = hero.heroQuoteResId,
                 style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.onBackground),
                 textAlign = TextAlign.Start
             )
             Text(
-                text = stringResource(id = hero.heroQuoteResId),
+                text = hero.heroQuoteResId,
                 style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.onBackground),
                 textAlign = TextAlign.Start
             )

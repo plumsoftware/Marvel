@@ -101,23 +101,23 @@ fun SnapList(modifier: Modifier = Modifier, list: List<Hero>, onScroll: (Color) 
                 }
             ) {
                 Box(modifier = Modifier.wrapContentSize()) {
-                    Image(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .align(Alignment.Center),
-                        contentScale = ContentScale.Crop,
-                        painter = painterResource(id = item.heroImageResId),
-                        contentDescription = "${stringResource(id = R.string.hero_image)} ${
-                            stringResource(id = item.heroNameResId)
-                        }"
-                    )
+//                    Image(
+//                        modifier = Modifier
+//                            .fillMaxSize()
+//                            .align(Alignment.Center),
+//                        contentScale = ContentScale.Crop,
+//                        painter = painterResource(id = item.heroImageResId),
+//                        contentDescription = "${stringResource(id = R.string.hero_image)} ${
+//                            stringResource(id = item.heroNameResId)
+//                        }"
+//                    )
 
                     Text(
                         modifier = Modifier
                             .wrapContentSize()
                             .align(alignment = Alignment.BottomStart)
                             .padding(all = Spaces.Items.heroNamePadding),
-                        text = stringResource(id = item.heroNameResId),
+                        text = item.heroNameResId,
                         style = MaterialTheme.typography.titleMedium.copy(color = Color.White)
                     )
                 }

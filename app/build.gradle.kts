@@ -58,6 +58,8 @@ dependencies {
     val retrofit = "2.9.0"
 
     val moshi = "1.11.0"
+    val moshiKotlin = "1.14.0"
+    val converterMoshi = "2.5.0"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
@@ -87,5 +89,7 @@ dependencies {
 
 //    Moshi
     implementation("com.squareup.moshi:moshi:$moshi")
+    implementation("com.squareup.moshi:moshi-kotlin:$moshiKotlin")
+    implementation("com.squareup.retrofit2:converter-moshi:$converterMoshi")
     kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshi")
 }
