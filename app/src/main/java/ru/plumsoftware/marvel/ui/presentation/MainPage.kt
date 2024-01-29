@@ -25,7 +25,7 @@ import ru.plumsoftware.marvel.ui.theme.Spaces
 @Composable
 fun MainPage(heroes: MutableList<Hero>, onHeroClick: (Hero) -> Unit = {}) {
     val heroBackColor = remember {
-        mutableStateOf(heroes[0].heroColor)
+        mutableStateOf(if (heroes.isNotEmpty()) heroes[0].heroColor else Hero().heroColor)
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -65,7 +65,9 @@ fun MainPage(heroes: MutableList<Hero>, onHeroClick: (Hero) -> Unit = {}) {
 private fun MainPage_() {
     MarvelTheme {
         Surface {
-            MainPage(heroes = mutableListOf())
+            MainPage(heroes = remember {
+                mutableListOf()
+            })
         }
     }
 }

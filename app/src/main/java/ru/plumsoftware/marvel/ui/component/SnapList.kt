@@ -147,7 +147,9 @@ fun SnapList(
 private fun SnapListPreview() {
     MarvelTheme {
         Surface {
-            SnapList(list = mutableListOf())
+            SnapList(list = remember {
+                mutableListOf()
+            })
         }
     }
 }
