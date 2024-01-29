@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import ru.plumsoftware.marvel.R
-import ru.plumsoftware.marvel.model.Hero
+import ru.plumsoftware.marvel.model.uimodel.Hero
 import ru.plumsoftware.marvel.ui.component.Header
 import ru.plumsoftware.marvel.ui.component.SnapList
 import ru.plumsoftware.marvel.ui.theme.MarvelTheme

@@ -27,7 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import ru.plumsoftware.marvel.R
 import ru.plumsoftware.marvel.mock.getMockHeroes
-import ru.plumsoftware.marvel.model.Hero
+import ru.plumsoftware.marvel.model.uimodel.Hero
 import ru.plumsoftware.marvel.ui.theme.MarvelTheme
 import ru.plumsoftware.marvel.ui.theme.Spaces
 

@@ -1,4 +1,4 @@
-package ru.plumsoftware.marvel.ui
+package ru.plumsoftware.marvel.model.constant
 
 object Screens {
     const val MAIN_PAGE = "MAIN_PAGE"

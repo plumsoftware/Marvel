@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -18,6 +18,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
         }
     }
 
@@ -41,7 +45,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
     packaging {
         resources {
@@ -51,6 +55,8 @@ android {
 }
 
 dependencies {
+
+    val roomVersion = "2.6.1"
 
     val navVersion = "2.7.6"
     val systemUIController = "0.32.0"
@@ -93,8 +99,14 @@ dependencies {
     implementation("com.squareup.moshi:moshi:$moshi")
     implementation("com.squareup.moshi:moshi-kotlin:$moshiKotlin")
     implementation("com.squareup.retrofit2:converter-moshi:$converterMoshi")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshi")
 
-    //Coil
+//    Coil
     implementation("io.coil-kt:coil-compose:$coilVersion")
+
+//    Room
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+
+//    KSP
+    ksp("androidx.room:room-compiler:$roomVersion")
 }

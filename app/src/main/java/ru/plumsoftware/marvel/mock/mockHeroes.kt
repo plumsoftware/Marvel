@@ -1,8 +1,6 @@
 package ru.plumsoftware.marvel.mock
 
-import androidx.compose.ui.graphics.Color
-import ru.plumsoftware.marvel.R
-import ru.plumsoftware.marvel.model.Hero
+import ru.plumsoftware.marvel.model.uimodel.Hero
 
 fun getMockHeroes(): List<Hero> {
     val list: List<Hero> = listOf(

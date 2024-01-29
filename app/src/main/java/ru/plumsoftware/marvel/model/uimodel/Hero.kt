@@ -1,4 +1,4 @@
-package ru.plumsoftware.marvel.model
+package ru.plumsoftware.marvel.model.uimodel
 
 import androidx.compose.ui.graphics.Color
 import kotlin.random.Random

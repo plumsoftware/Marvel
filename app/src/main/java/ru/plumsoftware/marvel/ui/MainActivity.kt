@@ -1,4 +1,4 @@
-package ru.plumsoftware.marvel
+package ru.plumsoftware.marvel.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -24,14 +24,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import ru.plumsoftware.marvel.model.Hero
 import ru.plumsoftware.marvel.model.constant.ApiConstants
 import ru.plumsoftware.marvel.model.constant.CharacterIds
+import ru.plumsoftware.marvel.model.constant.Screens
 import ru.plumsoftware.marvel.model.dto.characters.Results
+import ru.plumsoftware.marvel.model.uimodel.Hero
 import ru.plumsoftware.marvel.repository.MarvelApi
 import ru.plumsoftware.marvel.repository.MarvelRepository
 import ru.plumsoftware.marvel.repository.MarvelRepositoryImpl
-import ru.plumsoftware.marvel.ui.Screens
 import ru.plumsoftware.marvel.ui.presentation.HeroPage
 import ru.plumsoftware.marvel.ui.presentation.MainPage
 import ru.plumsoftware.marvel.ui.theme.ApplySystemColors
@@ -111,8 +111,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
-
                     Content(navController, selectedHero, heroes)
                 }
             }
