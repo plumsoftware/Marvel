@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Marvel</string>
+
+    <!-- Content description -->
+    <string name="hero_image">Hero image</string>
+    <string name="marvel_image">Marvel logo</string>
+    <string name="back_button">Back arrow icon</string>
+
+    <!-- Header -->
+    <string name="header">Choose your hero</string>
+
+    <!-- Iron Man -->
+    <string name="icon_man_name">Iron Man</string>
+    <string name="icon_man_quote">I am Iron Man</string>
+
+    <!-- Deadpool -->
+    <string name="deadpool_name">Deadpool</string>
+    <string name="deadpool_quote">I am Deadpool</string>
+
+    <!-- Thor -->
+    <string name="thor_name">Thor</string>
+    <string name="thor_quote">I am Thor</string>
+
+    <!-- Dr Strange -->
+    <string name="strange_name">Dr. Strange</string>
+    <string name="strange_quote">I am the Sorcerer Supreme, a surgeon. My name is Dr. Strange</string>
+</resources>
