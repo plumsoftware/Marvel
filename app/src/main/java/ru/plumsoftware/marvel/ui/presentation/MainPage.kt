@@ -13,11 +13,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import ru.plumsoftware.marvel.R
-import ru.plumsoftware.marvel.mock.getMockHeroes
 import ru.plumsoftware.marvel.model.Hero
 import ru.plumsoftware.marvel.ui.component.Header
 import ru.plumsoftware.marvel.ui.component.SnapList
@@ -25,9 +23,9 @@ import ru.plumsoftware.marvel.ui.theme.MarvelTheme
 import ru.plumsoftware.marvel.ui.theme.Spaces
 
 @Composable
-fun MainPage(onHeroClick: (Hero) -> Unit = {}) {
+fun MainPage(heroes: MutableList<Hero>, onHeroClick: (Hero) -> Unit = {}) {
     val heroBackColor = remember {
-        mutableStateOf(Color.Gray)
+        mutableStateOf(heroes[0].heroColor)
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -51,9 +49,8 @@ fun MainPage(onHeroClick: (Hero) -> Unit = {}) {
                 .fillMaxSize()
         ) {
             Header()
-
             SnapList(
-                list = getMockHeroes(),
+                list = heroes,
                 onHeroClick = onHeroClick,
                 onScroll = { color ->
                     heroBackColor.value = color
@@ -68,7 +65,7 @@ fun MainPage(onHeroClick: (Hero) -> Unit = {}) {
 private fun MainPage_() {
     MarvelTheme {
         Surface {
-            MainPage()
+            MainPage(heroes = mutableListOf())
         }
     }
 }

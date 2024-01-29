@@ -1,6 +1,5 @@
 package ru.plumsoftware.marvel.ui.presentation
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,10 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import coil.compose.AsyncImage
 import ru.plumsoftware.marvel.R
 import ru.plumsoftware.marvel.mock.getMockHeroes
 import ru.plumsoftware.marvel.model.Hero
@@ -46,6 +45,13 @@ fun HeroPage(hero: Hero, onBackCLick: () -> Unit) {
 //                stringResource(id = hero.heroNameResId)
 //            }"
 //        )
+
+        AsyncImage(
+            model = hero.heroImageResId,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+            contentDescription = stringResource(id = R.string.hero_image),
+        )
 
         Column(
             horizontalAlignment = Alignment.Start,
@@ -81,12 +87,12 @@ fun HeroPage(hero: Hero, onBackCLick: () -> Unit) {
         ) {
 
             Text(
-                text = hero.heroQuoteResId,
+                text = hero.heroQuoteResId.toString(),
                 style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.onBackground),
                 textAlign = TextAlign.Start
             )
             Text(
-                text = hero.heroQuoteResId,
+                text = hero.heroQuoteResId.toString(),
                 style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.onBackground),
                 textAlign = TextAlign.Start
             )

@@ -1,7 +1,6 @@
 package ru.plumsoftware.marvel
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,7 +12,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -29,6 +27,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.plumsoftware.marvel.model.Hero
 import ru.plumsoftware.marvel.model.constant.ApiConstants
 import ru.plumsoftware.marvel.model.constant.CharacterIds
+import ru.plumsoftware.marvel.model.dto.characters.Results
 import ru.plumsoftware.marvel.repository.MarvelApi
 import ru.plumsoftware.marvel.repository.MarvelRepository
 import ru.plumsoftware.marvel.repository.MarvelRepositoryImpl
@@ -47,15 +46,11 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val navController = rememberNavController()
+            val heroes = remember {
+                mutableListOf(Hero())
+            }
             val selectedHero = remember {
-                mutableStateOf(
-                    Hero(
-                        heroColor = Color.Gray,
-                        heroNameResId = "test",
-                        heroQuoteResId = "TEST TEST",
-                        heroImageResId = "test"
-                    )
-                )
+                mutableStateOf(heroes[0])
             }
 
             LaunchedEffect(key1 = Unit) {
@@ -69,8 +64,44 @@ class MainActivity : ComponentActivity() {
 
                     val rep: MarvelRepository = MarvelRepositoryImpl(marvelApi = api)
 
-                    val allCharacters: Any = rep.getAllCharacters()
-                    val heroById: Any = rep.getHeroById(CharacterIds.DEADPOOL_ID.toString())
+                    val allCharacters = rep.getAllCharacters()
+                    val heroById = rep.getHeroById(CharacterIds.DEADPOOL_ID.toString())
+
+                    if (heroById.code == 200)
+                        with(heroById.data?.results?.get(0)) {
+                            selectedHero.value = Hero(
+                                heroId = this?.id,
+                                heroNameResId = this?.name,
+                                heroQuoteResId = this?.description,
+                                heroImageResId = "${
+                                    this?.thumbnail?.path?.replace(
+                                        oldValue = "http",
+                                        newValue = "https"
+                                    )
+                                }.${this?.thumbnail?.extension}"
+                            )
+                        }
+
+                    if (allCharacters.code == 200) {
+                        heroes.clear()
+                        with(allCharacters.data!!.results) {
+                            for (i in this.indices) {
+                                val results: Results = this[i]
+                                val hero = Hero(
+                                    heroId = results.id,
+                                    heroNameResId = results.name,
+                                    heroQuoteResId = results.description,
+                                    heroImageResId = "${
+                                        results.thumbnail?.path?.replace(
+                                            oldValue = "http",
+                                            newValue = "https"
+                                        )
+                                    }.${results.thumbnail?.extension}"
+                                )
+                                heroes.add(hero)
+                            }
+                        }
+                    }
                 }
             }
 
@@ -82,7 +113,7 @@ class MainActivity : ComponentActivity() {
                 ) {
 
 
-                    Content(navController, selectedHero)
+                    Content(navController, selectedHero, heroes)
                 }
             }
         }
@@ -90,13 +121,20 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun Content(navController: NavHostController, selectedHero: MutableState<Hero>) {
+private fun Content(
+    navController: NavHostController,
+    selectedHero: MutableState<Hero>,
+    heroes: MutableList<Hero>
+) {
     NavHost(navController = navController, startDestination = Screens.MAIN_PAGE) {
         composable(route = Screens.MAIN_PAGE) {
-            MainPage(onHeroClick = { hero ->
-                selectedHero.value = hero
-                navController.navigate(route = Screens.HERO_PAGE)
-            })
+            MainPage(
+                heroes = heroes,
+                onHeroClick = { hero ->
+                    selectedHero.value = hero
+                    navController.navigate(route = Screens.HERO_PAGE)
+                }
+            )
         }
         composable(route = Screens.HERO_PAGE) {
             HeroPage(hero = selectedHero.value, onBackCLick = {

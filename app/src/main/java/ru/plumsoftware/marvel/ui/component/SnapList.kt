@@ -1,7 +1,6 @@
 package ru.plumsoftware.marvel.ui.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,11 +30,10 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import coil.compose.AsyncImage
 import ru.plumsoftware.marvel.R
-import ru.plumsoftware.marvel.mock.getMockHeroes
 import ru.plumsoftware.marvel.model.Hero
 import ru.plumsoftware.marvel.ui.theme.MarvelTheme
 import ru.plumsoftware.marvel.ui.theme.Sizes
@@ -43,7 +41,12 @@ import ru.plumsoftware.marvel.ui.theme.Spaces
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SnapList(modifier: Modifier = Modifier, list: List<Hero>, onScroll: (Color) -> Unit = {}, onHeroClick: (Hero) -> Unit = {}) {
+fun SnapList(
+    modifier: Modifier = Modifier,
+    list: MutableList<Hero>,
+    onScroll: (Color) -> Unit = {},
+    onHeroClick: (Hero) -> Unit = {}
+) {
 
     val state = rememberLazyListState()
 
@@ -88,7 +91,7 @@ fun SnapList(modifier: Modifier = Modifier, list: List<Hero>, onScroll: (Color) 
         state = state,
         flingBehavior = rememberSnapFlingBehavior(lazyListState = state)
     ) {
-        itemsIndexed(list) { index, item ->
+        itemsIndexed(list) { _, item ->
             Spacer(modifier = Modifier.width(width = Spaces.Items.snapRowItemSpace))
             Button(
                 shape = MaterialTheme.shapes.medium,
@@ -101,6 +104,16 @@ fun SnapList(modifier: Modifier = Modifier, list: List<Hero>, onScroll: (Color) 
                 }
             ) {
                 Box(modifier = Modifier.wrapContentSize()) {
+
+                    AsyncImage(
+                        model = item.heroImageResId,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .align(Alignment.Center),
+                        contentScale = ContentScale.Crop,
+                        contentDescription = stringResource(id = R.string.hero_image),
+                    )
+
 //                    Image(
 //                        modifier = Modifier
 //                            .fillMaxSize()
@@ -112,14 +125,16 @@ fun SnapList(modifier: Modifier = Modifier, list: List<Hero>, onScroll: (Color) 
 //                        }"
 //                    )
 
-                    Text(
-                        modifier = Modifier
-                            .wrapContentSize()
-                            .align(alignment = Alignment.BottomStart)
-                            .padding(all = Spaces.Items.heroNamePadding),
-                        text = item.heroNameResId,
-                        style = MaterialTheme.typography.titleMedium.copy(color = Color.White)
-                    )
+                    item.heroNameResId?.let {
+                        Text(
+                            modifier = Modifier
+                                .wrapContentSize()
+                                .align(alignment = Alignment.BottomStart)
+                                .padding(all = Spaces.Items.heroNamePadding),
+                            text = it,
+                            style = MaterialTheme.typography.titleMedium.copy(color = Color.White)
+                        )
+                    }
                 }
             }
             Spacer(modifier = Modifier.width(width = Spaces.Items.snapRowItemSpace))
@@ -132,7 +147,7 @@ fun SnapList(modifier: Modifier = Modifier, list: List<Hero>, onScroll: (Color) 
 private fun SnapListPreview() {
     MarvelTheme {
         Surface {
-            SnapList(list = getMockHeroes())
+            SnapList(list = mutableListOf())
         }
     }
 }
