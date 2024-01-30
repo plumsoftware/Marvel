@@ -7,6 +7,9 @@
     <string name="marvel_image">Marvel logo</string>
     <string name="back_button">Back arrow icon</string>
 
+    <!-- Error -->
+    <string name="error">Bad internet connection</string>
+
     <!-- Header -->
     <string name="header">Choose your hero</string>
 

@@ -6,6 +6,9 @@
     <string name="marvel_image">Логотип марвел</string>
     <string name="back_button">Иконка стрелки назад</string>
 
+    <!-- Error -->
+    <string name="error">Плохое соединение с интернетом</string>
+
     <!-- Header -->
     <string name="header">Выберите своего героя</string>
 

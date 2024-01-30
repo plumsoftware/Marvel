@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
 
             val navController = rememberNavController()
             val heroes = remember {
-                mutableListOf(Hero())
+                mutableListOf<Hero>()
             }
             val selectedHero = remember {
                 mutableStateOf(Hero())
@@ -59,6 +59,7 @@ class MainActivity : ComponentActivity() {
                 applicationContext,
                 CharacterDatabase::class.java, "CharacterDatabase"
             ).build()
+            val isError = remember { mutableStateOf(true) }
 
             LaunchedEffect(key1 = Unit) {
                 CoroutineScope(Dispatchers.IO).launch {
@@ -132,6 +133,7 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     } catch (e: Exception) {
+                        isError.value = true
                         heroes.clear()
                         val allCharacters1: List<Character> = db.dao.getAllCharacters()
 
@@ -154,7 +156,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Content(navController, selectedHero, heroes)
+                    Content(navController, selectedHero, heroes, isError)
                 }
             }
         }
@@ -165,16 +167,19 @@ class MainActivity : ComponentActivity() {
 private fun Content(
     navController: NavHostController,
     selectedHero: MutableState<Hero>,
-    heroes: MutableList<Hero>
+    heroes: MutableList<Hero>,
+    isError: MutableState<Boolean>
 ) {
     NavHost(navController = navController, startDestination = Screens.MAIN_PAGE) {
         composable(route = Screens.MAIN_PAGE) {
             MainPage(
-                heroes = heroes
-            ) { hero ->
-                selectedHero.value = hero
-                navController.navigate(route = Screens.HERO_PAGE)
-            }
+                heroes = heroes,
+                isError = isError,
+                onHeroClick = { hero ->
+                    selectedHero.value = hero
+                    navController.navigate(route = Screens.HERO_PAGE)
+                }
+            )
         }
         composable(route = Screens.HERO_PAGE) {
             HeroPage(hero = selectedHero.value, onBackCLick = {
