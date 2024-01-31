@@ -3,6 +3,7 @@ package ru.plumsoftware.marvel.model.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
+import ru.plumsoftware.data.model.dao.Character
 
 @Dao
 interface DatabaseDao {

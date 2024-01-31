@@ -1,6 +1,12 @@
 package ru.plumsoftware.marvel.model.dto.characters
 
 import com.squareup.moshi.Json
+import ru.plumsoftware.data.model.dto.characters.Comics
+import ru.plumsoftware.data.model.dto.characters.Events
+import ru.plumsoftware.data.model.dto.characters.Series
+import ru.plumsoftware.data.model.dto.characters.Stories
+import ru.plumsoftware.data.model.dto.characters.Thumbnail
+import ru.plumsoftware.data.model.dto.characters.Urls
 
 data class Results(
     @Json(name = "id") var id: Int? = null,

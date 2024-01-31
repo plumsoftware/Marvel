@@ -69,6 +69,8 @@ dependencies {
 
     val coilVersion = "2.5.0"
 
+    val koinVersion = "3.4.2"
+
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
@@ -109,4 +111,12 @@ dependencies {
 
 //    KSP
     ksp("androidx.room:room-compiler:$roomVersion")
+
+//    Koin
+    implementation("io.insert-koin:koin-android:$koinVersion")
+    implementation("io.insert-koin:koin-core:$koinVersion")
+
+//    Modules
+    implementation(project(path=":domain"))
+    implementation(project(path=":data"))
 }

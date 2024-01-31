@@ -1,7 +1,7 @@
 package ru.plumsoftware.marvel.utility
 
 import androidx.compose.ui.graphics.Color
-import ru.plumsoftware.marvel.model.constant.CharacterIds
+import ru.plumsoftware.data.constant.CharacterIds
 
 fun getHeroColor(id: Int): Color {
     val colors = mapOf(
