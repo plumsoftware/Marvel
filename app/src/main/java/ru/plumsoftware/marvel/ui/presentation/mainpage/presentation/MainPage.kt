@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -36,7 +37,7 @@ fun MainPage(
 ) {
 
     val state = mainViewModel.state.collectAsState().value
-    mainViewModel.initAction()
+    mainViewModel.initAction(MainStore.Action.DoMarvelRequest)
 
     Box(modifier = Modifier.fillMaxSize()) {
         Icon(
@@ -78,16 +79,20 @@ fun MainPage(
         ) {
             Header()
 
-            SnapList(
-                list = state.listHeroes!!,
-                onHeroClick = {
-                    onIntent(MainStore.Intent.OnHeroClick(hero = it))
-                    mainViewModel.onOutput(MainViewModel.Output.NavigateTo)
-                },
-                onScroll = { color ->
-                    onIntent(MainStore.Intent.OnScroll(color = color))
-                }
-            )
+            if (state.listHeroes.isEmpty())
+                CircularProgressIndicator()
+            else
+                SnapList(
+                    list = state.listHeroes,
+                    onHeroClick = {
+                        onIntent(MainStore.Intent.OnHeroClick(hero = it))
+                        mainViewModel.onOutput(MainViewModel.Output.ChangeSelectedHero(selectedHero = it))
+                        mainViewModel.onOutput(MainViewModel.Output.NavigateTo)
+                    },
+                    onScroll = { color ->
+                        onIntent(MainStore.Intent.OnScroll(color = color))
+                    }
+                )
         }
     }
 }
@@ -96,7 +101,7 @@ fun MainPage(
 @Preview(showBackground = true, showSystemUi = true)
 private fun MainPage_() {
 
-    val mainVW = MainViewModel(output = {}, action = { MainStore.Action.DoMarvelRequest })
+    val mainVW = MainViewModel(output = {})
 
     MarvelTheme {
         Surface {
