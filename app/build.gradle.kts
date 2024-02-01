@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -71,6 +72,9 @@ dependencies {
 
     val koinVersion = "3.4.2"
 
+    val firebaseVersion = "23.4.0"
+
+//    Auto-generate
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
@@ -115,6 +119,9 @@ dependencies {
 //    Koin
     implementation("io.insert-koin:koin-android:$koinVersion")
     implementation("io.insert-koin:koin-core:$koinVersion")
+
+//    Firebase
+    implementation("com.google.firebase:firebase-messaging:$firebaseVersion")
 
 //    Modules
     implementation(project(path=":domain"))
