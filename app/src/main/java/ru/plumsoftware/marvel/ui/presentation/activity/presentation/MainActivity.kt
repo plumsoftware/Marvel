@@ -31,11 +31,21 @@ class MainActivity : ComponentActivity(), KoinComponent {
         super.onCreate(savedInstanceState)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        val mainActivityViewModel = MainActivityViewModel()
 
         setContent {
 
             val navController = rememberNavController()
+
+            val mainActivityViewModel = MainActivityViewModel(
+                heroId = intent.getIntExtra("hero_id", -1),
+                output = { output ->
+                    when (output) {
+                        MainActivityViewModel.Output.PushHeroPage -> {
+                            navController.navigate(route = Screens.HERO_PAGE)
+                        }
+                    }
+                }
+            )
             val state = mainActivityViewModel.state.collectAsState().value
 
             MarvelTheme(darkTheme = true) {

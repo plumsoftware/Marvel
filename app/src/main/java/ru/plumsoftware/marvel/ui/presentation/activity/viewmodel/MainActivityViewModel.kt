@@ -1,14 +1,57 @@
 package ru.plumsoftware.marvel.ui.presentation.activity.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import ru.plumsoftware.data.model.dto.characters.CharacterRoot
+import ru.plumsoftware.data.model.uimodel.Hero
+import ru.plumsoftware.data.storage.MarvelStorage
 import ru.plumsoftware.marvel.ui.presentation.activity.state.MainActivityState
 import ru.plumsoftware.marvel.ui.presentation.activity.store.MainActivityStore
+import ru.plumsoftware.marvel.utility.isInternetAvailable
 
-class MainActivityViewModel : ViewModel() {
+class MainActivityViewModel(
+    heroId: Int,
+    private val output: (Output) -> Unit
+) : ViewModel(), KoinComponent {
 
-    val state = MutableStateFlow(MainActivityState())
+    private val marvelStorage by inject<MarvelStorage>()
+
+    val state = MutableStateFlow(
+        MainActivityState(
+            messageId = heroId
+        )
+    )
+
+    init {
+        if (heroId > 0 && isInternetAvailable()) {
+            viewModelScope.launch {
+                val get: CharacterRoot = marvelStorage.get(id = heroId)
+                with(get.data!!.results[0]) {
+                    state.update {
+                        it.copy(
+                            selectedHero = Hero(
+                                heroId = id,
+                                heroNameResId = name,
+                                heroQuoteResId = description,
+                                heroImageResId = "${
+                                    thumbnail?.path?.replace(
+                                        "http",
+                                        "https"
+                                    )
+                                }.${thumbnail?.extension}"
+                            )
+                        )
+                    }
+                    onOutput(Output.PushHeroPage)
+                }
+            }
+        }
+    }
 
     fun onIntent(intent: MainActivityStore.Intent) {
         when (intent) {
@@ -20,5 +63,13 @@ class MainActivityViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    fun onOutput(o: Output) {
+        output(o)
+    }
+
+    sealed class Output {
+        data object PushHeroPage : Output()
     }
 }
