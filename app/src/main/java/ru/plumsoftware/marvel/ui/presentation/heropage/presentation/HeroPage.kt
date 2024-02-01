@@ -18,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -26,27 +27,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import ru.plumsoftware.marvel.R
-import ru.plumsoftware.marvel.model.uimodel.Hero
+import ru.plumsoftware.data.model.uimodel.Hero
+import ru.plumsoftware.marvel.ui.presentation.heropage.viewmodel.HeroViewModel
 import ru.plumsoftware.marvel.ui.theme.MarvelTheme
 import ru.plumsoftware.marvel.ui.theme.Spaces
 
 @Composable
-fun HeroPage(hero: Hero, onBackCLick: () -> Unit) {
+fun HeroPage(heroViewModel: HeroViewModel) {
+
+    val state = heroViewModel.state.collectAsState().value
+
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
-//        Image(
-//            modifier = Modifier.fillMaxSize(),
-//            contentScale = ContentScale.Crop,
-//            painter = painterResource(id = hero.heroImageResId),
-//            contentDescription = "${stringResource(id = R.string.hero_image)} ${
-//                stringResource(id = hero.heroNameResId)
-//            }"
-//        )
 
         AsyncImage(
-            model = hero.heroImageResId,
+            model = state.hero?.heroImageResId,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
             contentDescription = stringResource(id = R.string.hero_image),
@@ -60,7 +57,9 @@ fun HeroPage(hero: Hero, onBackCLick: () -> Unit) {
         ) {
             Spacer(modifier = Modifier.height(Spaces.Items.heroPageSpacer))
             IconButton(
-                onClick = onBackCLick,
+                onClick = {
+                    heroViewModel.onOutput(HeroViewModel.Output.OnBackClicked)
+                },
                 colors = IconButtonDefaults.iconButtonColors(
                     contentColor = MaterialTheme.colorScheme.onBackground
                 )
@@ -86,12 +85,12 @@ fun HeroPage(hero: Hero, onBackCLick: () -> Unit) {
         ) {
 
             Text(
-                text = hero.heroQuoteResId.toString(),
+                text = state.hero?.heroQuoteResId.toString(),
                 style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.onBackground),
                 textAlign = TextAlign.Start
             )
             Text(
-                text = hero.heroQuoteResId.toString(),
+                text = state.hero?.heroQuoteResId.toString(),
                 style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.onBackground),
                 textAlign = TextAlign.Start
             )
@@ -104,9 +103,14 @@ fun HeroPage(hero: Hero, onBackCLick: () -> Unit) {
 @Composable
 @Preview(showBackground = true)
 private fun HeroPage_() {
+
+    val viewModel = HeroViewModel(hero = Hero(), output = {
+
+    })
+
     MarvelTheme(darkTheme = true) {
         Surface {
-            HeroPage(hero = Hero(), onBackCLick = {})
+            HeroPage(viewModel)
         }
     }
 }

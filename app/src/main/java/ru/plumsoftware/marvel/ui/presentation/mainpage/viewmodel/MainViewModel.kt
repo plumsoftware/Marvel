@@ -14,7 +14,7 @@ import ru.plumsoftware.data.model.dao.Character
 import ru.plumsoftware.data.model.dao.CharacterDatabase
 import ru.plumsoftware.data.storage.MarvelStorage
 import ru.plumsoftware.marvel.application.App
-import ru.plumsoftware.marvel.model.uimodel.Hero
+import ru.plumsoftware.data.model.uimodel.Hero
 import ru.plumsoftware.marvel.ui.presentation.mainpage.state.MainState
 import ru.plumsoftware.marvel.ui.presentation.mainpage.store.MainStore
 
@@ -117,7 +117,7 @@ class MainViewModel(
     }
 
     private fun isInternetAvailable(): Boolean {
-        var result = false
+        val result: Boolean
         val context = App.INSTANCE
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

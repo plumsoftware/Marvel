@@ -34,7 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import ru.plumsoftware.marvel.R
-import ru.plumsoftware.marvel.model.uimodel.Hero
+import ru.plumsoftware.data.model.uimodel.Hero
 import ru.plumsoftware.marvel.ui.theme.MarvelTheme
 import ru.plumsoftware.marvel.ui.theme.Sizes
 import ru.plumsoftware.marvel.ui.theme.Spaces
@@ -73,7 +73,7 @@ fun SnapList(
                         list[firstVisibleItemIndex + 1].heroColor
                     }
 
-                    onScroll(color)
+                    onScroll(Color(color))
                 }
                 return super.onPreScroll(available, source)
             }
@@ -113,17 +113,6 @@ fun SnapList(
                         contentScale = ContentScale.Crop,
                         contentDescription = stringResource(id = R.string.hero_image),
                     )
-
-//                    Image(
-//                        modifier = Modifier
-//                            .fillMaxSize()
-//                            .align(Alignment.Center),
-//                        contentScale = ContentScale.Crop,
-//                        painter = painterResource(id = item.heroImageResId),
-//                        contentDescription = "${stringResource(id = R.string.hero_image)} ${
-//                            stringResource(id = item.heroNameResId)
-//                        }"
-//                    )
 
                     item.heroNameResId?.let {
                         Text(

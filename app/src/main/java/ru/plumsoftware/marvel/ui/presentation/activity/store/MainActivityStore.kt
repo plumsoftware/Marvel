@@ -1,6 +1,6 @@
 package ru.plumsoftware.marvel.ui.presentation.activity.store
 
-import ru.plumsoftware.marvel.model.uimodel.Hero
+import ru.plumsoftware.data.model.uimodel.Hero
 
 sealed class MainActivityStore {
     sealed class Intent {

@@ -19,8 +19,8 @@ import ru.plumsoftware.marvel.ui.presentation.activity.state.MainActivityState
 import ru.plumsoftware.marvel.ui.presentation.activity.store.MainActivityStore
 import ru.plumsoftware.marvel.ui.presentation.activity.viewmodel.MainActivityViewModel
 import ru.plumsoftware.marvel.model.constants.Screens
-import ru.plumsoftware.marvel.model.uimodel.Hero
 import ru.plumsoftware.marvel.ui.presentation.heropage.presentation.HeroPage
+import ru.plumsoftware.marvel.ui.presentation.heropage.viewmodel.HeroViewModel
 import ru.plumsoftware.marvel.ui.presentation.mainpage.presentation.MainPage
 import ru.plumsoftware.marvel.ui.presentation.mainpage.viewmodel.MainViewModel
 import ru.plumsoftware.marvel.ui.theme.ApplySystemColors
@@ -76,9 +76,17 @@ private fun Content(
             MainPage(mainViewModel = viewModel, onIntent = viewModel::onIntent)
         }
         composable(route = Screens.HERO_PAGE) {
-            HeroPage(hero = state.selectedHero, onBackCLick = {
-                navController.popBackStack()
-            })
+            val viewModel = HeroViewModel(
+                hero = state.selectedHero,
+                output = { output ->
+                    when (output) {
+                        HeroViewModel.Output.OnBackClicked -> {
+                            navController.popBackStack()
+                        }
+                    }
+                }
+            )
+            HeroPage(heroViewModel = viewModel)
         }
     }
 }
