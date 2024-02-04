@@ -11,20 +11,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import coil.compose.AsyncImage
 import ru.plumsoftware.marvel.R
 import ru.plumsoftware.data.model.uimodel.Hero
@@ -32,11 +38,17 @@ import ru.plumsoftware.marvel.ui.presentation.heropage.viewmodel.HeroViewModel
 import ru.plumsoftware.marvel.ui.theme.MarvelTheme
 import ru.plumsoftware.marvel.ui.theme.Spaces
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HeroPage(heroViewModel: HeroViewModel) {
 
     val state = heroViewModel.state.collectAsState().value
 
+//    val layoutDirection = LocalLayoutDirection.current
+//    val textResourceId = when (layoutDirection) {
+//        LayoutDirection.Ltr -> R.string.ltr_text
+//        LayoutDirection.Rtl -> R.string.rtl_text
+//    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -49,27 +61,35 @@ fun HeroPage(heroViewModel: HeroViewModel) {
             contentDescription = stringResource(id = R.string.hero_image),
         )
 
+        TopAppBar(
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = Color.Transparent,
+                navigationIconContentColor = MaterialTheme.colorScheme.onBackground
+            ),
+            title = {},
+            navigationIcon = {
+                IconButton(
+                    onClick = {
+                        heroViewModel.onOutput(HeroViewModel.Output.OnBackClicked)
+                    },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        contentColor = MaterialTheme.colorScheme.onBackground
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.ArrowBack, contentDescription = stringResource(
+                            id = R.string.back_button
+                        )
+                    )
+                }
+            })
+
         Column(
             horizontalAlignment = Alignment.Start,
             modifier = Modifier
                 .wrapContentSize()
                 .align(Alignment.TopStart)
         ) {
-            Spacer(modifier = Modifier.height(Spaces.Items.heroPageSpacer))
-            IconButton(
-                onClick = {
-                    heroViewModel.onOutput(HeroViewModel.Output.OnBackClicked)
-                },
-                colors = IconButtonDefaults.iconButtonColors(
-                    contentColor = MaterialTheme.colorScheme.onBackground
-                )
-            ) {
-                Icon(
-                    imageVector = Icons.Rounded.ArrowBack, contentDescription = stringResource(
-                        id = R.string.back_button
-                    )
-                )
-            }
         }
 
         Column(

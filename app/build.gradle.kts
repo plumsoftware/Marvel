@@ -63,6 +63,8 @@ dependencies {
 
     val firebaseVersion = "23.4.0"
 
+    val googleFontsVersion = "1.5.4"
+
 //    Auto-generate
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
@@ -79,6 +81,9 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+//    Google fonts
+    implementation("androidx.compose.ui:ui-text-google-fonts:$googleFontsVersion")
 
 //    Navigation
     implementation("androidx.navigation:navigation-common:$navVersion")
