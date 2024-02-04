@@ -15,8 +15,7 @@ import ru.plumsoftware.marvel.ui.presentation.activity.store.MainActivityStore
 import ru.plumsoftware.marvel.utility.isInternetAvailable
 
 class MainActivityViewModel(
-    heroId: Int,
-    private val output: (Output) -> Unit
+    heroId: Int
 ) : ViewModel(), KoinComponent {
 
     private val marvelStorage by inject<MarvelStorage>()
@@ -47,7 +46,6 @@ class MainActivityViewModel(
                             )
                         )
                     }
-                    onOutput(Output.PushHeroPage)
                 }
             }
         }
@@ -63,10 +61,6 @@ class MainActivityViewModel(
                 }
             }
         }
-    }
-
-    fun onOutput(o: Output) {
-        output(o)
     }
 
     sealed class Output {

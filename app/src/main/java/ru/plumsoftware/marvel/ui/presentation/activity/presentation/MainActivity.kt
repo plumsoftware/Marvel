@@ -10,12 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import org.koin.core.component.KoinComponent
-import ru.plumsoftware.marvel.ui.presentation.activity.state.MainActivityState
+import ru.plumsoftware.data.model.uimodel.Hero
 import ru.plumsoftware.marvel.ui.presentation.activity.store.MainActivityStore
 import ru.plumsoftware.marvel.ui.presentation.activity.viewmodel.MainActivityViewModel
 import ru.plumsoftware.marvel.model.constants.Screens
@@ -32,29 +31,18 @@ class MainActivity : ComponentActivity(), KoinComponent {
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
+        val mainActivityViewModel = MainActivityViewModel(
+            heroId = intent.getIntExtra("hero_id", -1),
+        )
+
         setContent {
-
-            val navController = rememberNavController()
-
-            val mainActivityViewModel = MainActivityViewModel(
-                heroId = intent.getIntExtra("hero_id", -1),
-                output = { output ->
-                    when (output) {
-                        MainActivityViewModel.Output.PushHeroPage -> {
-                            navController.navigate(route = Screens.HERO_PAGE)
-                        }
-                    }
-                }
-            )
-            val state = mainActivityViewModel.state.collectAsState().value
-
             MarvelTheme(darkTheme = true) {
                 ApplySystemColors()
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Content(navController, state, mainActivityViewModel::onIntent)
+                    Content(mainActivityViewModel)
                 }
             }
         }
@@ -64,10 +52,17 @@ class MainActivity : ComponentActivity(), KoinComponent {
 
 @Composable
 private fun Content(
-    navController: NavHostController,
-    state: MainActivityState,
-    onIntent: (MainActivityStore.Intent) -> Unit
+    mainActivityViewModel: MainActivityViewModel,
 ) {
+
+    val navController = rememberNavController()
+
+    val state = mainActivityViewModel.state.collectAsState().value
+
+    if (state.messageId > 0 && state.selectedHero != Hero()) {
+        navController.navigate(route = Screens.MAIN_PAGE)
+    }
+
     NavHost(navController = navController, startDestination = Screens.MAIN_PAGE) {
         composable(route = Screens.MAIN_PAGE) {
             val viewModel = MainViewModel(
@@ -78,7 +73,11 @@ private fun Content(
                         }
 
                         is MainViewModel.Output.ChangeSelectedHero -> {
-                            onIntent(MainActivityStore.Intent.ChangeSelectedHero(selectedHero = output.selectedHero))
+                            mainActivityViewModel.onIntent(
+                                MainActivityStore.Intent.ChangeSelectedHero(
+                                    selectedHero = output.selectedHero
+                                )
+                            )
                         }
                     }
                 }
