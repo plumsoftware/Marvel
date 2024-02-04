@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -90,7 +91,9 @@ private fun Content(
                 output = { output ->
                     when (output) {
                         HeroViewModel.Output.OnBackClicked -> {
-                            navController.popBackStack()
+                            if (navController.currentBackStackEntry?.lifecycle?.currentState == Lifecycle.State.RESUMED)
+                                navController.popBackStack()
+
                         }
                     }
                 }
