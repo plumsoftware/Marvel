@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -43,12 +44,8 @@ import ru.plumsoftware.marvel.ui.theme.Spaces
 fun HeroPage(heroViewModel: HeroViewModel) {
 
     val state = heroViewModel.state.collectAsState().value
+    val layoutDirection = LocalLayoutDirection.current
 
-//    val layoutDirection = LocalLayoutDirection.current
-//    val textResourceId = when (layoutDirection) {
-//        LayoutDirection.Ltr -> R.string.ltr_text
-//        LayoutDirection.Rtl -> R.string.rtl_text
-//    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -62,6 +59,7 @@ fun HeroPage(heroViewModel: HeroViewModel) {
         )
 
         TopAppBar(
+            modifier = Modifier.fillMaxWidth(),
             colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = Color.Transparent,
                 navigationIconContentColor = MaterialTheme.colorScheme.onBackground
@@ -69,6 +67,7 @@ fun HeroPage(heroViewModel: HeroViewModel) {
             title = {},
             navigationIcon = {
                 IconButton(
+                    modifier = Modifier.align(if (layoutDirection == LayoutDirection.Ltr) Alignment.CenterStart else Alignment.CenterEnd),
                     onClick = {
                         heroViewModel.onOutput(HeroViewModel.Output.OnBackClicked)
                     },
@@ -77,7 +76,8 @@ fun HeroPage(heroViewModel: HeroViewModel) {
                     )
                 ) {
                     Icon(
-                        imageVector = Icons.Rounded.ArrowBack, contentDescription = stringResource(
+                        imageVector = if (layoutDirection == LayoutDirection.Ltr) Icons.Rounded.ArrowBack else Icons.Rounded.ArrowForward,
+                        contentDescription = stringResource(
                             id = R.string.back_button
                         )
                     )
@@ -105,14 +105,18 @@ fun HeroPage(heroViewModel: HeroViewModel) {
         ) {
 
             Text(
+                modifier = Modifier
+                    .fillMaxWidth(),
                 text = state.hero?.heroQuoteResId.toString(),
                 style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.onBackground),
-                textAlign = TextAlign.Start
+                textAlign = if (layoutDirection == LayoutDirection.Ltr) TextAlign.Start else TextAlign.Right
             )
             Text(
+                modifier = Modifier
+                    .fillMaxWidth(),
                 text = state.hero?.heroQuoteResId.toString(),
                 style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.onBackground),
-                textAlign = TextAlign.Start
+                textAlign = if (layoutDirection == LayoutDirection.Ltr) TextAlign.Start else TextAlign.Right
             )
             Spacer(modifier = Modifier.height(Spaces.Items.heroPageSpacer))
 

@@ -30,8 +30,11 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import coil.compose.AsyncImage
 import ru.plumsoftware.marvel.R
 import ru.plumsoftware.data.model.uimodel.Hero
@@ -49,6 +52,7 @@ fun SnapList(
 ) {
 
     val state = rememberLazyListState()
+    val layoutDirection = LocalLayoutDirection.current
 
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
@@ -117,11 +121,13 @@ fun SnapList(
                     item.heroNameResId?.let {
                         Text(
                             modifier = Modifier
-                                .wrapContentSize()
+                                .fillMaxWidth()
+                                .wrapContentHeight()
                                 .align(alignment = Alignment.BottomStart)
                                 .padding(all = Spaces.Items.heroNamePadding),
                             text = it,
-                            style = MaterialTheme.typography.titleMedium.copy(color = Color.White)
+                            style = MaterialTheme.typography.titleMedium.copy(color = Color.White),
+                            textAlign = if (layoutDirection == LayoutDirection.Ltr) TextAlign.Start else TextAlign.Right
                         )
                     }
                 }
