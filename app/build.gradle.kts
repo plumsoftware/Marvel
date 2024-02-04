@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
     id("com.google.gms.google-services")
 }
 
@@ -19,10 +18,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
-        }
-
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
         }
     }
 
@@ -62,12 +57,6 @@ dependencies {
     val navVersion = "2.7.6"
     val systemUIController = "0.32.0"
 
-    val retrofit = "2.9.0"
-
-    val moshi = "1.14.0"
-    val moshiKotlin = "1.14.0"
-    val converterMoshi = "2.5.0"
-
     val coilVersion = "2.5.0"
 
     val koinVersion = "3.4.2"
@@ -98,23 +87,12 @@ dependencies {
 //    System ui controller
     implementation("com.google.accompanist:accompanist-systemuicontroller:$systemUIController")
 
-//    Retrofit
-    implementation("com.squareup.retrofit2:retrofit:$retrofit")
-
-//    Moshi
-    implementation("com.squareup.moshi:moshi:$moshi")
-    implementation("com.squareup.moshi:moshi-kotlin:$moshiKotlin")
-    implementation("com.squareup.retrofit2:converter-moshi:$converterMoshi")
-
 //    Coil
     implementation("io.coil-kt:coil-compose:$coilVersion")
 
 //    Room
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
-
-//    KSP
-    ksp("androidx.room:room-compiler:$roomVersion")
 
 //    Koin
     implementation("io.insert-koin:koin-android:$koinVersion")
