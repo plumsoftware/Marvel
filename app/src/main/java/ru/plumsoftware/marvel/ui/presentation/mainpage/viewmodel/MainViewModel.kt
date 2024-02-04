@@ -68,49 +68,58 @@ class MainViewModel(
         val listHeroes = mutableListOf<Hero>()
 
         if (isInternetAvailable()) {
-            val get = storage.get()
-            if (get.code in 200..299)
-                with(get.data!!.results) {
-                    for (i in this.indices) {
-                        val results = this[i]
-                        val hero = Hero(
-                            heroId = results.id,
-                            heroNameResId = results.name,
-                            heroQuoteResId = results.description,
-                            heroImageResId = "${
-                                results.thumbnail?.path?.replace(
-                                    oldValue = "http",
-                                    newValue = "https"
-                                )
-                            }.${results.thumbnail?.extension}"
-                        )
-
-                        listHeroes.add(hero)
-                        db.dao.upsertData(
-                            characters = Character(
-                                heroId = hero.heroId!!,
-                                name = hero.heroNameResId!!,
-                                description = hero.heroQuoteResId!!
+            try {
+                val get = storage.get()
+                if (get.code in 200..299)
+                    with(get.data!!.results) {
+                        for (i in this.indices) {
+                            val results = this[i]
+                            val hero = Hero(
+                                heroId = results.id,
+                                heroNameResId = results.name,
+                                heroQuoteResId = results.description,
+                                heroImageResId = "${
+                                    results.thumbnail?.path?.replace(
+                                        oldValue = "http",
+                                        newValue = "https"
+                                    )
+                                }.${results.thumbnail?.extension}"
                             )
-                        )
+
+                            listHeroes.add(hero)
+                            db.dao.upsertData(
+                                characters = Character(
+                                    heroId = hero.heroId!!,
+                                    name = hero.heroNameResId!!,
+                                    description = hero.heroQuoteResId!!
+                                )
+                            )
+                        }
+                        return listHeroes
                     }
-                    return listHeroes
-                } else return listHeroes
-        } else {
-            val allCharacters: List<Character> = db.dao.getAllCharacters()
-
-            allCharacters.forEach {
-                listHeroes.add(
-                    Hero(
-                        heroId = it.heroId,
-                        heroNameResId = it.name,
-                        heroQuoteResId = it.description
-                    )
-                )
+                else return listHeroes
+            } catch (_: Exception) {
+                return getFromLocalStorage()
             }
-
-            return listHeroes
+        } else {
+            return getFromLocalStorage()
         }
+    }
+
+    private suspend fun getFromLocalStorage(): MutableList<Hero> {
+        val listHeroes = mutableListOf<Hero>()
+        val allCharacters: List<Character> = db.dao.getAllCharacters()
+
+        allCharacters.forEach {
+            listHeroes.add(
+                Hero(
+                    heroId = it.heroId,
+                    heroNameResId = it.name,
+                    heroQuoteResId = it.description
+                )
+            )
+        }
+        return listHeroes
     }
 
     sealed class Output {
