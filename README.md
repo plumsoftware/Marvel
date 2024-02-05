@@ -16,7 +16,7 @@
 
 # Get started
 
-##APK 
+## APK 
 Application apk is located in path ```Marvel/app/release/app-release.apk```
 
 ## Screenshots
