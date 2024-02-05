@@ -1,6 +1,6 @@
-#Marvel app
+# Marvel app 
 
-##Tech stack
+## Tech stack
 - Kotlin
 - Jetpack COmpose
 - Moshi
@@ -14,28 +14,28 @@
 - Room for local storage
 - Ksp for code generation
 
-#Get started
+# Get started
 
-##APK
+##APK 
 Application apk is located in path ```Marvel/app/release/app-release.apk```
 
-##screenshots
+## Screenshots
 
-_Portrait_
+_Portrait_ 
  ![screenshot #1](https://github.com/plumsoftware/Marvel/blob/develop/app/src/main/res/drawable/portrait.png?raw=true)
 
- _Landscape_
+ _Landscape_ 
   ![screenshot #2](https://github.com/plumsoftware/Marvel/blob/develop/app/src/main/res/drawable/landscape.png?raw=true)
 
-_Enable RTL_
+_Enable RTL_ 
   ![screenshot #3](https://github.com/plumsoftware/Marvel/blob/develop/app/src/main/res/drawable/enable_rtl.png?raw=true)
 
-_Localization (English and Russian)_
+_Localization (English and Russian)_ 
   ![screenshot #4](https://github.com/plumsoftware/Marvel/blob/develop/app/src/main/res/drawable/no_connection_ru.png?raw=true)
   ![screenshot #5](https://github.com/plumsoftware/Marvel/blob/develop/app/src/main/res/drawable/no_connection_eng.png?raw=true)
 
-_Loading state_
+_Loading state_ 
  ![screenshot #6](https://github.com/plumsoftware/Marvel/blob/develop/app/src/main/res/drawable/loading.png?raw=true)
  
-_No connection state_
+_No connection state_ 
   ![screenshot #7](https://github.com/plumsoftware/Marvel/blob/develop/app/src/main/res/drawable/no_connection_ru.png?raw=true)
