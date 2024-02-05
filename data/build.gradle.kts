@@ -26,8 +26,16 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            buildConfigField("String", "PUBLIC_API_KEY", "\"6b27749315b0b8b0c4bcf7ab8ca1f8ff\"")
+            buildConfigField("String", "PRIVATE_API_KEY", "\"11dab13270dda1d7cff1e7f93ef3b9ce2c0be681\"")
+        }
+        debug {
+            buildConfigField("String", "PUBLIC_API_KEY", "\"6b27749315b0b8b0c4bcf7ab8ca1f8ff\"")
+            buildConfigField("String", "PRIVATE_API_KEY", "\"11dab13270dda1d7cff1e7f93ef3b9ce2c0be681\"")
         }
     }
+    buildFeatures.buildConfig = true
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -70,5 +78,5 @@ dependencies {
     ksp("androidx.room:room-compiler:$roomVersion")
 
 //    Module
-    implementation(project(path=":domain"))
+    implementation(project(path = ":domain"))
 }

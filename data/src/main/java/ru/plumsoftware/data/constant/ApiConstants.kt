@@ -1,5 +1,6 @@
 package ru.plumsoftware.data.constant
 
+import ru.plumsoftware.data.BuildConfig
 import java.math.BigInteger
 import java.security.MessageDigest
 
@@ -9,8 +10,8 @@ class ApiConstants {
         const val BASE_URL = "https://gateway.marvel.com"
 
         val ts = "1"
-        const val PUBLIC_API_KEY = "6b27749315b0b8b0c4bcf7ab8ca1f8ff"
-        const val PRIVATE_API_KEY = "11dab13270dda1d7cff1e7f93ef3b9ce2c0be681"
+        const val PUBLIC_API_KEY: String = BuildConfig.PUBLIC_API_KEY
+        private const val PRIVATE_API_KEY: String = BuildConfig.PRIVATE_API_KEY
         const val LIMIT = "20"
 
         fun hash(): String {
