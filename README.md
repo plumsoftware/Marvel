@@ -1,4 +1,5 @@
 #Marvel app
+
 ##Tech stack
 - Kotlin
 - Jetpack COmpose
@@ -14,10 +15,12 @@
 - Ksp for code generation
 
 #Get started
+
 ##APK
 Application apk is located in path ```Marvel/app/release/app-release.apk```
 
 ##screenshots
+
 _Portrait_
  ![screenshot #1](https://github.com/plumsoftware/Marvel/blob/develop/app/src/main/res/drawable/portrait.png?raw=true)
 
