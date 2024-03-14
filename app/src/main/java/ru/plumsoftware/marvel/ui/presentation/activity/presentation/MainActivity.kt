@@ -70,7 +70,15 @@ private fun Content(
                 output = { output ->
                     when (output) {
                         MainViewModel.Output.NavigateTo -> {
-                            navController.navigate(route = Screens.HERO_PAGE)
+                            navController.navigate(route = Screens.HERO_PAGE){
+                                navController.graph.startDestinationRoute?.let { route ->
+                                    popUpTo(route) {
+                                        saveState = true
+                                    }
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
                         }
 
                         is MainViewModel.Output.ChangeSelectedHero -> {

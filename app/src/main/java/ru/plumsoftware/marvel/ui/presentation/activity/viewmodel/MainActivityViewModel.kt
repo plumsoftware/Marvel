@@ -1,5 +1,6 @@
 package ru.plumsoftware.marvel.ui.presentation.activity.viewmodel
 
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +15,7 @@ import ru.plumsoftware.marvel.ui.presentation.activity.state.MainActivityState
 import ru.plumsoftware.marvel.ui.presentation.activity.store.MainActivityStore
 import ru.plumsoftware.marvel.utility.isInternetAvailable
 
+@Immutable
 class MainActivityViewModel(
     heroId: Int
 ) : ViewModel(), KoinComponent {
