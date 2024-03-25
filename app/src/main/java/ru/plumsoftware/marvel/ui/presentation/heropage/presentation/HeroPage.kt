@@ -64,7 +64,13 @@ fun HeroPage(heroViewModel: HeroViewModel) {
                 containerColor = Color.Transparent,
                 navigationIconContentColor = MaterialTheme.colorScheme.onBackground
             ),
-            title = {},
+            title = {
+                Text(
+                    text = state.hero?.heroNameResId!!,
+                    style = MaterialTheme.typography.titleLarge,
+                    textAlign = TextAlign.Center
+                )
+            },
             navigationIcon = {
                 IconButton(
                     modifier = Modifier.align(if (layoutDirection == LayoutDirection.Ltr) Alignment.CenterStart else Alignment.CenterEnd),

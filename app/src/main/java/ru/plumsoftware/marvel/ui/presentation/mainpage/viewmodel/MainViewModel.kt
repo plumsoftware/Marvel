@@ -88,15 +88,24 @@ class MainViewModel(
                                 }.${results.thumbnail?.extension}"
                             )
 
-                            listHeroes.add(hero)
+//                            listHeroes.add(hero)
                             db.dao.upsertData(
                                 characters = Character(
                                     heroId = hero.heroId!!,
                                     name = hero.heroNameResId!!,
-                                    description = hero.heroQuoteResId!!
+                                    description = hero.heroQuoteResId!!,
+                                    imageLink = hero.heroImageResId!!
                                 )
                             )
                         }
+                        listHeroes.addAll(db.dao.getAllCharacters().map {
+                            Hero (
+                                heroId = it.heroId,
+                                heroNameResId = it.name,
+                                heroQuoteResId = it.description,
+                                heroImageResId = it.imageLink
+                            )
+                        })
                         return listHeroes
                     }
                 else return listHeroes

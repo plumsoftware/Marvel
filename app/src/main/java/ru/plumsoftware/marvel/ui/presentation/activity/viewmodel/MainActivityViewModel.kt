@@ -33,19 +33,21 @@ class MainActivityViewModel(
             viewModelScope.launch {
                 val get: CharacterRoot = marvelStorage.get(id = heroId)
                 with(get.data!!.results[0]) {
+                    val selectedHero = Hero(
+                        heroId = id,
+                        heroNameResId = name,
+                        heroQuoteResId = description,
+                        heroImageResId = "${
+                            thumbnail?.path?.replace(
+                                "http",
+                                "https"
+                            )
+                        }.${thumbnail?.extension}"
+                    )
+
                     state.update {
                         it.copy(
-                            selectedHero = Hero(
-                                heroId = id,
-                                heroNameResId = name,
-                                heroQuoteResId = description,
-                                heroImageResId = "${
-                                    thumbnail?.path?.replace(
-                                        "http",
-                                        "https"
-                                    )
-                                }.${thumbnail?.extension}"
-                            )
+                            selectedHero = selectedHero
                         )
                     }
                 }
