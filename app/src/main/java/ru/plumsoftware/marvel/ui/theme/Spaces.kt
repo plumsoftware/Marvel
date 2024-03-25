@@ -6,7 +6,7 @@ object Spaces {
     object Items {
         val snapRowItemSpace = 10.dp
         val heroNamePadding = 22.dp
-        val headerItemSpace = 16.dp
+        val headerItemSpace = 10.dp
         val contentSpace = 28.dp
         val heroPageSpace = 10.dp
         val heroPageSpacer = 40.dp
